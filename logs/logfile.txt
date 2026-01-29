@@ -1,0 +1,2 @@
+cmnatic@thm grep "54.36.149.64" logfile.txt
+54.36.149.64
