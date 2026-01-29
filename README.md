@@ -162,6 +162,20 @@ Traffic Statistics:
   Bot IPs detected: 3
 ```
 
+## Current restrictions
+- Works only with text logs
+- Limited machine learning analytics
+- No real-time processing
+
+## Paths of development
+1. ML models: Random Forest for anomalies
+2. Stream processing: Apache Kafka + Flink
+3. Threat intelligence: Integration with VirusTotal, AbuseIPDB
+4. Cloud-native: Kubernetes deployment
+5. API: REST API for integration
+
+**The project is an MVP that can be quickly adapted to specific business requirements and scaled to the enterprise level.**
+
 ## License
 
 MIT License
