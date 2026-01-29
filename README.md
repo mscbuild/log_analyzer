@@ -1,104 +1,104 @@
-# Механизм анализа логов
+# Log analysis mechanism
 
-Проект для анализа серверных логов (Apache/Nginx) с использованием Pandas для выявления попыток взлома и аномалий трафика.
+A project for analyzing server logs (Apache/Nginx) using Pandas to detect hacking attempts and traffic anomalies.
 
-## Возможности
+## Possibilities
 
-### Анализ безопасности
-- **SQL-инъекции**: обнаружение попыток внедрения SQL-кода
-- **XSS-атаки**: выявление межсайтовых скриптов
-- **Path Traversal**: обнаружение попыток доступа к файловой системе
-- **Command Injection**: выявление инъекций команд
-- **Brute Force**: обнаружение атак подбора паролей
-- **Сканирование**: выявление сканирования уязвимостей
-- **Доступ к админ-панелям**: мониторинг попыток доступа к административным ресурсам
+### Security analysis
+- **SQL Injection**: Detecting SQL injection attempts
+- **XSS attacks**: identifying cross-site scripting
+- **Path Traversal**: detecting file system access attempts
+- **Command Injection**: command injection detection
+- **Brute Force**: detection of password guessing attacks
+- **Scan**: Vulnerability Scan Detection
+- **Access to Admin Panels**: Monitoring attempts to access administrative resources
 
-### Анализ трафика
-- **Всплески трафика**: обнаружение аномальных пиков запросов
-- **DDoS-атаки**: выявление потенциальных атак отказа в обслуживании
-- **Бот-трафик**: определение автоматизированного трафика
-- **Анализ паттернов**: почасовые и дневные паттерны трафика
-- **Статус-коды**: распределение HTTP-кодов ответов
+### Traffic analysis
+- **Traffic Bursts**: Detecting Abnormal Request Peak
+- **DDoS Attacks**: Identifying Potential Denial of Service Attacks
+- **Bot Traffic**: Definition of Automated Traffic
+- **Pattern Analysis**: Hourly and Daily Traffic Patterns
+- **Status Codes**: Distribution of HTTP response codes
 
-### Визуализация
-- График временной шкалы трафика
-- Распределение HTTP-статус кодов
-- Почасовые паттерны трафика
-- Топ IP-адресов
-- График обнаруженных атак
-- Комплексная дашборд
+### Visualization
+- Traffic timeline graph
+- HTTP status code distribution
+- Hourly traffic patterns
+- Top IP addresses
+- Detected attacks graph
+- Comprehensive dashboard
 
-## Установка
+## Installation
 
-1. Клонируйте репозиторий:
+1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/mscbuild/log_analyzer 
 cd log_analyzer
 ```
 
-2. Установите зависимости:
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Использование
+## Usage
 
-### Базовый анализ
+### Basic analysis
 ```bash
 python main.py -f /path/to/access.log
 ```
 
-### Анализ логов Nginx
+### Nginx log analysis
 ```bash
 python main.py -f /path/to/nginx.log --format nginx
 ```
 
-### Анализ с сохранением в указанную директорию
+### Analysis with saving to the specified directory
 ```bash
 python main.py -f /path/to/access.log -o results
 ```
 
-### Только краткая сводка
+### Just a quick summary
 ```bash
 python main.py -f /path/to/access.log --summary-only
 ```
 
-## Структура проекта
+## Project structure
 
 ```
 log_analyzer/
 ├── src/
-│   ├── log_parser.py          # Парсер логов Apache/Nginx
-│   ├── security_analyzer.py   # Анализ безопасности
-│   ├── traffic_analyzer.py    # Анализ трафика
-│   └── visualizer.py          # Визуализация результатов
+│   ├── log_parser.py          # Apache/Nginx Log Parser
+│   ├── security_analyzer.py   # Security analysis
+│   ├── traffic_analyzer.py    # Traffic analysis
+│   └── visualizer.py          # Visualization of results
 ├── examples/
-│   ├── sample_apache.log      # Пример логов Apache
-│   └── sample_nginx.log       # Пример логов Nginx
-├── output/                    # Директория для результатов
-├── main.py                    # Основной скрипт
-└── requirements.txt          # Зависимости
+│   ├── sample_apache.log      # Example Apache logs
+│   └── sample_nginx.log       # Example of Nginx logs
+├── output/                    # Directory for results
+├── main.py                    # Main script
+└── requirements.txt           # Dependencies
 ```
 
-## Пример использования
+## Example of use
 
-### Анализ тестовых данных
+### Analysis of test data
 ```bash
-# Анализ Apache логов
+# Apache log analysis
 python main.py -f examples/sample_apache.log
 
-# Анализ Nginx логов
+# Nginx log analysis
 python main.py -f examples/sample_nginx.log --format nginx
 ```
 
-### Результаты анализа
+### Results of the analysis
 
-После выполнения анализа создаются:
-- **JSON отчет**: детальный отчет с результатами анализа
-- **Графики**: визуализация паттернов и аномалий
-- **Сводка**: краткая информация в консоли
+After the analysis is completed, the following are created:
+- **JSON Report**: A detailed report with analysis results
+- **Charts**: Visualization of patterns and anomalies
+- **Summary**: Brief information in the console
 
-## Форматы логов
+## Log formats
 
 ### Apache Common Log Format
 ```
@@ -110,15 +110,15 @@ python main.py -f examples/sample_nginx.log --format nginx
 192.168.1.100 - - [25/Jan/2026:15:30:01 +0300] "GET / HTTP/1.1" 200 1234 "https://google.com" "Mozilla/5.0"
 ```
 
-## Метрики безопасности
+## Security metrics
 
-Система вычисляет следующие метрики:
-- **Risk Score**: оценка риска для IP-адресов (0-100)
-- **Error Rate**: процент ошибок для каждого IP
-- **Attack Severity**: серьезность обнаруженных атак
-- **Traffic Anomalies**: аномалии трафика
+The system calculates the following metrics:
+- **Risk Score**: Risk score for IP addresses (0-100)
+- **Error Rate**: Error rate for each IP
+- **Attack Severity**: Severity of detected attacks
+- **Traffic Anomalies**: Traffic anomalies
 
-## Требования
+## Requirements
 
 - Python 3.7+
 - Pandas >= 1.5.0
@@ -127,7 +127,7 @@ python main.py -f examples/sample_nginx.log --format nginx
 - Seaborn >= 0.11.0
 - Scipy >= 1.9.0
 
-## Пример вывода
+## Output example
 
 ```
 [*] Parsing log file: examples/sample_apache.log
@@ -162,6 +162,6 @@ Traffic Statistics:
   Bot IPs detected: 3
 ```
 
-## Лицензия
+## License
 
 MIT License
