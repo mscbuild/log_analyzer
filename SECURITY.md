@@ -2,38 +2,30 @@
 
 ## Supported Versions
 
-We provide security updates for the following versions:
-
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.x     | :white_check_mark: |
+| >= 1.0  | :white_check_mark: |
 | < 1.0   | :x:                |
 
-## Security Considerations for Log Analysis
+## Security Focus: Data Parsing & Privacy
 
-As a tool that processes raw server data, we prioritize the following risks:
+Because this tool processes sensitive server logs (Apache/Nginx) using `pandas`, `regex`, and `ipaddress`, we focus on:
 
-*   **Log Injection**: Maliciously crafted log entries designed to exploit the parser or visualizer.
-*   **ReDoS (Regular Expression DoS)**: Complex strings in `log_parser.py` that could cause CPU exhaustion when processing large files.
-*   **Path Traversal**: Vulnerabilities where a user could manipulate file paths to read logs outside of the intended directory.
-*   **Sensitive Data Exposure**: Ensuring that IP addresses or user agents in `output/` are handled according to privacy standards (GDPR/CCPA).
+*   **Regular Expression Denial of Service (ReDoS)**: We use the `regex` library to mitigate some risks, but complex patterns in `log_parser.py` must be audited for catastrophic backtracking.
+*   **IP Address Validation**: Using the `ipaddress` module to prevent injection attacks or SSRF-related vulnerabilities when resolving or filtering log sources.
+*   **Data Leakage in Visualizations**: Ensuring `visualizer.py` (via `seaborn`/`matplotlib`) does not inadvertently expose sensitive PII (Personally Identifiable Information) like full IP addresses in public reports if not intended.
+*   **Large File Vulnerability**: Protecting `traffic_analyzer.py` from memory exhaustion (OOM) when loading massive `.log` files into `pandas` DataFrames.
 
-## How to Report a Vulnerability
+## Reporting a Vulnerability
 
-**Please do not report security vulnerabilities through public GitHub issues.**
+**Do not report security vulnerabilities via public GitHub issues.**
 
-If you discover a vulnerability, please report it privately:
+1. **Private Report**: Please use the [GitHub Private Vulnerability Reporting](https://github.com) feature.
+2. **Email**: Alternatively, contact **[security@mscbuild.dev]**.
+3. **Response**: We aim to acknowledge all reports within **48 hours** and provide a fix or mitigation within **14 days**.
 
-1.  **Email**: Send a detailed report to **[security@mscbuild.dev]**.
-2.  **GitHub Advisory**: Use the [Private Vulnerability Reporting](https://github.com) feature on GitHub.
-3.  **Details**: Please include a sample log file (if applicable) that triggers the issue and the version of Python used.
-
-### Response Timeline
-*   **Acknowledgment**: Within 48 hours.
-*   **Patch Goal**: Critical vulnerabilities aim to be patched within 10–14 days.
-
-## Best Practices for Users
-*   **Sanitize Inputs**: Only run this tool on logs from trusted sources.
-*   **Output Security**: Be cautious when sharing files from the `output/` directory, as they may contain sensitive infrastructure data.
-*   **Environment**: We recommend running the analyzer in a virtual environment (`venv`) to isolate dependencies.
+## Security Recommendations
+- **Environment**: Always use a virtual environment (`python -m venv venv`).
+- **Audit**: Run `pip-audit` regularly to check `pandas` and `numpy` for known CVEs.
+- **Privacy**: If sharing `output/` files, ensure you have anonymized sensitive log data.
