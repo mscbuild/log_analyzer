@@ -25,7 +25,7 @@ As a tool that processes raw server data, we prioritize the following risks:
 
 If you discover a vulnerability, please report it privately:
 
-1.  **Email**: Send a detailed report to **[mscbuildl@example.com]**.
+1.  **Email**: Send a detailed report to **[security@mscbuild.dev]**.
 2.  **GitHub Advisory**: Use the [Private Vulnerability Reporting](https://github.com) feature on GitHub.
 3.  **Details**: Please include a sample log file (if applicable) that triggers the issue and the version of Python used.
 
